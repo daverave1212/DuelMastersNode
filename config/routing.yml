@@ -1,0 +1,9 @@
+routes:
+    userRegister:
+        path: /users/register
+        controller: UserController:register
+        methods: [POST]
+    userLogin:
+        path: /users/login
+        controller: UserController:login
+        methods: [POST]
