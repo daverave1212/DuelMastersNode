@@ -6,7 +6,6 @@ const UsersController = {
             if (!data) {
                 return res.send({});
             }
-
             return res.send(data);
         })
     },
