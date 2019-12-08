@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const History_MoveController = {
+const HistoryMoveController = {
     show: (req, res) => {
         models.History_Move.findByPk(req.params.id).then(data => {
             if (!data) {
@@ -19,8 +19,8 @@ const History_MoveController = {
             action_by : req.body.action_by,
             target : req.body.target,
             outcome : req.body.outcome
-        }).then(history_move => {
-            return res.send(history_move);
+        }).then(historyMove => {
+            return res.send(historyMove);
         });
     },
     update: (req, res) => {
@@ -36,4 +36,4 @@ const History_MoveController = {
     },
 };
 
-module.exports = History_MoveController;
+module.exports = HistoryMoveController;

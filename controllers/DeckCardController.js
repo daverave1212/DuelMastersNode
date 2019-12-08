@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const Deck_CardController = {
+const DeckCardController = {
     show: (req, res) => {
         models.Deck_Card.findByPk(req.params.id).then(data => {
             if (!data) {
@@ -17,8 +17,8 @@ const Deck_CardController = {
         models.Deck_Card.create({
             deck_id : req.body.deck_id,
             card_id : req.body.card_id
-        }).then(deck_card => {
-            return res.send(deck_card);
+        }).then(deckCard => {
+            return res.send(deckCard);
         });
     },
     update: (req, res) => {
@@ -34,4 +34,4 @@ const Deck_CardController = {
     },
 };
 
-module.exports = Deck_CardController;
+module.exports = DeckCardController;
