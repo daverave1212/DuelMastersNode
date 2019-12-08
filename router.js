@@ -32,18 +32,18 @@ router.delete('/deck/:id', deckController.delete)
 
 // History_Move controller
 const history_moveController = require('./controllers/History_MoveController')
-router.get('/history_move', history_move.index)
-router.post('/history_move', history_move.create)
-router.get('/history_move/:id', history_move.show)
-router.put('/history_move/:id', history_move.update)
-router.delete('/history_move/:id', history_move.delete)
+router.get('/history_move', history_moveController.index)
+router.post('/history_move', history_moveController.create)
+router.get('/history_move/:id', history_moveController.show)
+router.put('/history_move/:id', history_moveController.update)
+router.delete('/history_move/:id', history_moveController.delete)
 
 // Deck_Card controller
 const deck_cardController = require('./controllers/Deck_CardController')
-router.get('/deck_card', deck_card.index)
-router.post('/deck_card', deck_card.create)
-router.get('/deck_card/:id', deck_card.show)
-router.put('/deck_card/:id', deck_card.update)
-router.delete('/deck_card/:id', deck_card.delete)
+router.get('/deck_card', deck_cardController.index)
+router.post('/deck_card', deck_cardController.create)
+router.get('/deck_card/:id', deck_cardController.show)
+router.put('/deck_card/:id', deck_cardController.update)
+router.delete('/deck_card/:id', deck_cardController.delete)
 
 module.exports = router
