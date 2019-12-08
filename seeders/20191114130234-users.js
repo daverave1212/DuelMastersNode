@@ -21,16 +21,6 @@ module.exports = {
       rank: 0,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    {
-      username: 'banana1',
-      password: 'parola123',
-      email: 'banana1@mailinator.co',
-      wins: 0,
-      loses: 0,
-      rank: 0,
-      createdAt: new Date(),
-      updatedAt: new Date()
     }], {});
   },
 
