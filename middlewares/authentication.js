@@ -1,5 +1,21 @@
 const jwt = require('jsonwebtoken');
 const config = require('../SuperSecretKey.js');
+const models = require('../models');
+
+function verifyUsernameAndPassword(data, callback){
+    models.User.findAll({
+        where: {
+            username: data.user.username,
+            password: data.user.password,
+        }
+    }).then(data => {
+        if(data != null && data.length > 0){
+            callback(false)
+        } else {
+            callback(true)
+        }
+    })
+}
 
 function doAuthorization(req, res, next){
     if(!req.headers.authorization){
@@ -8,14 +24,22 @@ function doAuthorization(req, res, next){
         })
     } else {
         const tokenToVerify = req.headers.authorization.replace('Bearer ', ''); // https://security.stackexchange.com/a/120244
-        console.log(`Token to verify: ${tokenToVerify}`)
         jwt.verify(tokenToVerify, config.JWTSECRET, (err, data) => {
-          if (err)
-            res.status(401).send({
-              error: "You are just not allowed, man! Cut it out!",
-            });
-          else
-            next(); // Urmatorul pas din middleware-ul frameworkului
+            if (err)
+                res.status(401).send({
+                  error: "Invalid token?",
+                });
+            else{
+                verifyUsernameAndPassword(data, (error) => {
+                  if(err){
+                      res.status(403).send({
+                          error: "Invalid username and/or password."
+                      })
+                  } else {
+                      next()
+                  }
+                })
+            }
         });
     }
 }

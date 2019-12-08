@@ -12,18 +12,15 @@ const router = express.Router()
 // Authentication Routing
 const authenticationController = require('./controllers/AuthenticationController')
 const authenticationMiddleware = require('./middlewares/authentication')
-router.use('/user', authenticationMiddleware)
-console.log(authenticationController)
 router.post('/login', authenticationController.login)
-console.log('SAIDAS')
 
 // User Routing
 const userController = require('./controllers/UserController')
-router.get('/user', userController.index)
+router.get('/user', authenticationMiddleware, userController.index)
 router.post('/user', userController.create)
-router.get('/user/:id', userController.show)
-router.put('/user/:id', userController.update)
-router.delete('/user/:id', userController.delete)
+router.get('/user/:id', authenticationMiddleware, userController.show)
+router.put('/user/:id', authenticationMiddleware, userController.update)
+router.delete('/user/:id', authenticationMiddleware, userController.delete)
 
 // Card Routing
 const cardController = require('./controllers/CardController')

@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const UsersController = {
+const UserController = {
     show: (req, res) => {
         models.User.findByPk(req.params.id).then(data => {
             if (!data) {
@@ -11,7 +11,6 @@ const UsersController = {
     },
     index: (req, res) => {
         models.User.findAll().then(data => res.send(data));
-
     },
     create: (req, res) => {
         const body = req.body;
@@ -39,4 +38,4 @@ const UsersController = {
     },
 };
 
-module.exports = UsersController;
+module.exports = UserController;
