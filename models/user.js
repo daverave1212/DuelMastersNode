@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     rank: DataTypes.INTEGER
   }, {});
   User.associate = function(models) {
-    // User.belongsToMany(models.Match, {through:'Matches', foreignKey: 'first_player', as: 'matches'});
-    // User.belongsToMany(models.Match, {through:'Matches', foreignKey: 'second_player', as: 'matches'});
+    // User.belongsToMany(models.Match, {as: 'matches', through: 'UserMatches'});
+    // User.belongsToMany(models.Deck, {as: 'decks', through: 'UserDecks'});
   };
   return User;
 };
