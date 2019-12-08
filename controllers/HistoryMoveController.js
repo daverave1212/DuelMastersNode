@@ -2,7 +2,7 @@ const models = require('../models');
 
 const HistoryMoveController = {
     show: (req, res) => {
-        models.History_Move.findByPk(req.params.id).then(data => {
+        models.HistoryMove.findByPk(req.params.id).then(data => {
             if (!data) {
                 return res.send({});
             }
@@ -10,11 +10,11 @@ const HistoryMoveController = {
         })
     },
     index: (req, res) => {
-        models.History_Move.findAll().then(data => res.send(data));
+        models.HistoryMove.findAll().then(data => res.send(data));
 
     },
     create: (req, res) => {
-        models.History_Move.create({
+        models.HistoryMove.create({
             matchId : req.body.matchId,
             actionBy : req.body.actionBy,
             target : req.body.target,
@@ -26,13 +26,13 @@ const HistoryMoveController = {
     update: (req, res) => {
         const body = req.body;
         const id = req.params.id;
-        models.History_Move.update(body, { where: { id } }).then(updated =>
-            models.History_Move.findByPk(id).then(data => res.send(data))
+        models.HistoryMove.update(body, { where: { id } }).then(updated =>
+            models.HistoryMove.findByPk(id).then(data => res.send(data))
         );
     },
     delete: (req, res) => {
         const id = req.params.id;
-        models.History_Move.destroy({ where: { id } }).then(data => res.send(true));
+        models.HistoryMove.destroy({ where: { id } }).then(data => res.send(true));
     },
 };
 
