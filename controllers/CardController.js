@@ -14,8 +14,11 @@ const CardController = {
     },
     create: (req, res) => {
         models.Card.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            name: req.body.name,
+            rarity: req.body.rarity,
+            type: req.body.type,
+            cost: req.body.cost,
+            src: req.body.src,
         }).then(card => res.send(card));
     },
     update: (req, res) => {

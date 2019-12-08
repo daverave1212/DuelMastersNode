@@ -1,8 +1,7 @@
-const express = require('express');
-//const authenticationController = require('./controllers/AuthenticationController');
-//const authenticationMiddleware = require('./middlewares/authentication');
+const express = require('express')
 
-const router = express.Router();
+
+const router = express.Router()
 
 /*
   Inregistram middleware-ul pentru a fi inclus in chain doar pe request-urile
@@ -10,7 +9,13 @@ const router = express.Router();
   Pentru a-l aplica pe intreaga aplicatie, metoda `.use()` exista si pe instanta de express (`app` din index.js)
 */
 
-//router.use('/users', authenticationMiddleware);
+// Authentication Routing
+const authenticationController = require('./controllers/AuthenticationController')
+const authenticationMiddleware = require('./middlewares/authentication')
+router.use('/user', authenticationMiddleware)
+console.log(authenticationController)
+router.post('/login', authenticationController.login)
+console.log('SAIDAS')
 
 // User Routing
 const userController = require('./controllers/UserController')
@@ -36,10 +41,4 @@ router.get('/deck/:id', deckController.show)
 router.put('/deck/:id', deckController.update)
 router.delete('/deck/:id', deckController.delete)
 
-/*
-  Middleware-ul de autentificare nu ar trebui sa fie luat in considerare pe ruta /login.
-  Nu ar mai fi posibila autentificarea.
-*/
-//router.post('/login', authenticationController.login);
-
-module.exports = router;
+module.exports = router

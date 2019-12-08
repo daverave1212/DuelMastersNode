@@ -16,8 +16,12 @@ const UsersController = {
     create: (req, res) => {
         const body = req.body;
         models.User.create({
-            firstName: body.firstName,
-            lastName: body.lastName,
+            username: body.username,
+            password: body.password,
+            email: body.email,
+            wins: 0,
+            loses: 0,
+            rank: 0
         }).then(user => {
             return res.send(user);
         });
