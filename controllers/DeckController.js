@@ -14,7 +14,7 @@ const DeckController = {
     },
     create: (req, res) => {
         models.Deck.create({
-            owner_id: req.body.owner_id,
+            ownerId: req.body.ownerId,
         }).then(deck => res.send(deck));
     },
     update: (req, res) => {

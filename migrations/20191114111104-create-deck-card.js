@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      deck_id: {
+      deckId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      card_id: {
+      cardId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      match_id: {
+      matchId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      action_by: {
+      actionBy: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

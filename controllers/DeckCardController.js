@@ -15,8 +15,8 @@ const DeckCardController = {
     },
     create: (req, res) => {
         models.Deck_Card.create({
-            deck_id : req.body.deck_id,
-            card_id : req.body.card_id
+            deckId : req.body.deckId,
+            cardId : req.body.cardId
         }).then(deckCard => {
             return res.send(deckCard);
         });

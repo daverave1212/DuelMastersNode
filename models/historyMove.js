@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const History_move = sequelize.define('History_Move', {
-    match_id: DataTypes.INTEGER,
-    action_by: DataTypes.INTEGER,
+    matchId: DataTypes.INTEGER,
+    actionBy: DataTypes.INTEGER,
     target: DataTypes.STRING,
     outcome: DataTypes.STRING
   }, {});

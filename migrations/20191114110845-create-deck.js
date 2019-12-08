@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      owner_id: {
+      ownerId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

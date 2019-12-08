@@ -15,10 +15,10 @@ const MatchController = {
     },
     create: (req, res) => {
         models.Match.create({
-            first_player : req.body.first_player,
-            first_player_deck : req.body.first_player_deck,
-            second_player : req.body.second_player,
-            second_player_deck : req.body.second_player_deck
+            firstPlayer : req.body.firstPlayer,
+            firstPlayer_deck : req.body.firstPlayerDeck,
+            secondPlayer : req.body.secondPlayer,
+            secondPlayerDeck : req.body.secondPlayerDeck
         }).then(match => {
             return res.send(match);
         });

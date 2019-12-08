@@ -15,8 +15,8 @@ const HistoryMoveController = {
     },
     create: (req, res) => {
         models.History_Move.create({
-            match_id : req.body.match_id,
-            action_by : req.body.action_by,
+            matchId : req.body.matchId,
+            actionBy : req.body.actionBy,
             target : req.body.target,
             outcome : req.body.outcome
         }).then(historyMove => {
