@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     rarity: DataTypes.STRING,
     type: DataTypes.STRING,
     cost: DataTypes.STRING,
-    src: DataTypes.STRING
+    src: DataTypes.STRING,
+    race: DataTypes.STRING,
+    power: DataTypes.STRING
   }, {});
   Card.associate = function(models) {
     // associations can be defined here

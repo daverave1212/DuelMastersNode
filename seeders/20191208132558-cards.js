@@ -1,4 +1,5 @@
 'use strict';
+const cardsSource = require('../config/cardsSource.json');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -12,26 +13,18 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Users', [{
-      username: 'banana1',
-      password: 'parola123',
-      email: 'banana1@mailinator.co',
-      wins: 0,
-      loses: 0,
-      rank: 0,
+
+    return queryInterface.bulkInsert('Cards', cardsSource.map(card => ({
+      name: card.name,
+      rarity: card.rarity,
+      type: card.type,
+      cost: card.cost,
+      src: '',
+      race: card.race,
+      power: card.power,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    {
-      username: 'banana1',
-      password: 'parola123',
-      email: 'banana1@mailinator.co',
-      wins: 0,
-      loses: 0,
-      rank: 0,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], {});
+    })));
   },
 
   down: (queryInterface, Sequelize) => {
@@ -42,6 +35,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-   return queryInterface.bulkDelete('Users', null, {});
+    return queryInterface.bulkDelete('Cards', null, {});
   }
 };
