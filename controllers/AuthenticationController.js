@@ -5,9 +5,6 @@ const jwt = require('jsonwebtoken')
 
 const AuthenticationController = {
     login: (req, res) => {
-        //console.log(req.body.username)
-        //console.log(req.body.password)
-        console.log(req.body)
         models.User.findAll({
             where: {
                 username: req.body.username,
@@ -15,8 +12,11 @@ const AuthenticationController = {
             }
         }).then(data => {
             if (data.length > 0) {
-                // Returnam aici pentru a opri executia scriptului
-                return jwt.sign({}, config.JWTSECRET, (err, token) => {
+                const user = {
+                    username : req.body.username,
+                    password : req.body.password
+                }
+                return jwt.sign({user: user}, config.JWTSECRET, (err, token) => {
                     return res.send({ token: token })
                 })
             } else {

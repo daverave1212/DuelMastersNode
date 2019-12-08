@@ -13,9 +13,7 @@ const router = express.Router()
 const authenticationController = require('./controllers/AuthenticationController')
 const authenticationMiddleware = require('./middlewares/authentication')
 router.use('/user', authenticationMiddleware)
-console.log(authenticationController)
 router.post('/login', authenticationController.login)
-console.log('SAIDAS')
 
 // User Routing
 const userController = require('./controllers/UserController')
