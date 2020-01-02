@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Deck.associate = function(models) {
-    // Deck.belongsToMany(models.Card, {as: 'cards'});
+    Deck.belongsTo(models.User);
+    Deck.belongsToMany(models.Card, {through: 'DeckCards'});
   };
   return Deck;
 };

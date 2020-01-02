@@ -2,20 +2,25 @@ const models = require('../models');
 
 const DeckController = {
     show: (req, res) => {
-        models.Deck.findByPk(req.params.id).then(data => {
-            if (!data) {
+        models.Deck.findByPk(req.params.id).then(deck => {
+            if (!deck) {
                 return res.send({});
             }
-            return res.send(data);
+            return res.send(deck);
         })
     },
     index: (req, res) => {
-        models.Deck.findAll().then(data => res.send(data));
+        if(req.query.owned){ 
+            models.Deck.findAll({where:{UserId: req.headers.userId}}).then(ownedDecks => res.send(ownedDecks));
+            return;
+        }
+        models.Deck.findAll().then(allDecks => res.send(allDecks));
     },
     create: (req, res) => {
         models.Deck.create({
-            ownerId: req.body.ownerId,
-        }).then(deck => res.send(deck));
+            UserId: req.headers.userId,
+            name: req.body.name
+        }).then(deck => res.send(deck)).catch(err=>console.error(err));
     },
     update: (req, res) => {
         const id = req.params.id;

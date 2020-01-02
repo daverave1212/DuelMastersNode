@@ -12,10 +12,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      ownerId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

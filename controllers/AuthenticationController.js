@@ -5,18 +5,14 @@ const jwt = require('jsonwebtoken')
 
 const AuthenticationController = {
     login: (req, res) => {
-        models.User.findAll({
+        models.User.findOne({
             where: {
                 username: req.body.username,
                 password: req.body.password,
             }
-        }).then(data => {
-            if (data.length > 0) {
-                const user = {
-                    username : req.body.username,
-                    password : req.body.password
-                }
-                return jwt.sign({user: user}, config.JWTSECRET, (err, token) => {
+        }).then(user => {
+            if (user) {
+                return jwt.sign({userId: user.id}, config.JWTSECRET, (err, token) => {
                     return res.send({ token: token })
                 })
             } else {
