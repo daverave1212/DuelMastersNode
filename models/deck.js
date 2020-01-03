@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Deck.associate = function(models) {
     Deck.belongsTo(models.User);
-    Deck.belongsToMany(models.Card, {through: 'DeckCards'});
+    Deck.belongsToMany(models.Card, {through: 'DeckCards', unique: false});
   };
   return Deck;
 };

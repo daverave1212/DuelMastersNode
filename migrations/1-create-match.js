@@ -8,19 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstPlayer: {
+      firstPlayerHP: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      firstPlayerDeck: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      secondPlayer: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      secondPlayerDeck: {
+      secondPlayerHP: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

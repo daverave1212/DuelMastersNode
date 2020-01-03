@@ -1,19 +1,11 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('History_Moves', {
+    return queryInterface.createTable('HistoryMoves', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      matchId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      actionBy: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       target: {
@@ -35,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('History_Moves');
+    return queryInterface.dropTable('HistoryMoves');
   }
 };

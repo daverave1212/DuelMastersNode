@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     race: DataTypes.STRING,
     power: DataTypes.STRING
   }, {});
-  Card.associate = function(models) {
-    Card.belongsToMany(models.Deck, {through: 'DeckCards'});
+  Card.associate = function (models) {
+    Card.belongsToMany(models.Deck, { through: 'DeckCards', unique: false });
   };
   return Card;
 };
