@@ -52,6 +52,27 @@ module.exports = {
         password: 'CHANGEDPASS',
         email: 'CHANGEDMAIL'
     },
+    modifiedExistingCard : {
+        "id": 1,
+        "name": "Chilyer, the Oracle - " + randomNumber(),
+        "rarity": "Rarulus",
+        "type": "Creature",
+        "cost": "2",
+        "src": "",
+        "race": "Light Bringer",
+        "power": "2575"
+    },
+    generateCard(){
+        return {
+            "name": randomName() + " " + randomName(),
+            "rarity": "Rare",
+            "type": "Creature",
+            "cost": "5",
+            "src": "",
+            "race": "Light Bringer",
+            "power": "5000"
+        }
+    },
     generateUser(){
         return {
             username: randomName() + randomNumber(),
