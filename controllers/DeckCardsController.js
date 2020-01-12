@@ -8,7 +8,7 @@ const DeckCardsController = {
                 throw ('Deck not found');
             }
             if (req.headers.userId !== targetDeck.UserId) {
-                throw ( 'Not the owner');
+                throw ('Not the owner');
             }
 
             findCard = models.Card.findOne({ where: { id: req.body.cardId } }).then(targetCard => {

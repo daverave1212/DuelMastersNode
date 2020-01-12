@@ -79,5 +79,10 @@ module.exports = {
             password: randomName() + randomNumber(),
             email: randomName() + '@' + randomName() + 'mail.com'
         }
+    },
+    generateDeck(){
+        return {
+            name: randomName() + ' ' + randomName()
+        }
     }
 }
