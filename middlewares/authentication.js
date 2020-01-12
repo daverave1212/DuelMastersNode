@@ -32,6 +32,7 @@ function doAuthorization(req, res, next){
                 });
             }else{
                 req.headers.userId = jwtDecode(tokenToVerify).userId; 
+                req.headers.role = jwtDecode(tokenToVerify).role;
                 next();
             }
             // else{
