@@ -6,7 +6,7 @@ module.exports = {
             'UserId1', {
             type: Sequelize.INTEGER,
             references: {
-                model: 'User',
+                model: 'Users',
                 key: 'id'
             },
             onUpdate: 'CASCADE',
@@ -25,7 +25,7 @@ module.exports = {
             });
         }).then(() => {
             return queryInterface.addColumn(
-                'Decks',
+                'Matches',
                 'DeckId1', {
                 type: Sequelize.INTEGER,
                 references: {
@@ -37,7 +37,7 @@ module.exports = {
             });
         }).then(() => {
             return queryInterface.addColumn(
-                'Decks',
+                'Matches',
                 'DeckId2', {
                 type: Sequelize.INTEGER,
                 references: {

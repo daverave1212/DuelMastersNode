@@ -2,7 +2,7 @@ const models = require('../models');
 
 const MatchController = {
     show: (req, res) => {
-        models.Match.findByPk(req.params.id).then(data => {
+        models.Match.findAll({where: {id: req.params.id}}).then(data => {
             if (!data) {
                 return res.send({});
             }

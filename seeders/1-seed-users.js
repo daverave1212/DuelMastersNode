@@ -10,6 +10,7 @@ module.exports = {
       wins: 999,
       loses: 1,
       rank: 100,
+      role: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -20,6 +21,7 @@ module.exports = {
       wins: 0,
       loses: 0,
       rank: 0,
+      role: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -30,6 +32,7 @@ module.exports = {
       wins: 0,
       loses: 0,
       rank: 0,
+      role: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -40,6 +43,7 @@ module.exports = {
       wins: 0,
       loses: 0,
       rank: 0,
+      role: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

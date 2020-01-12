@@ -29,18 +29,6 @@ router.post('/deck', authenticationMiddleware, deckController.create);
 router.get('/deck/:id', authenticationMiddleware, deckController.show);
 router.put('/deck/:id', authenticationMiddleware, deckController.update);
 router.delete('/deck/:id', authenticationMiddleware, deckController.delete);
-
-// DeckCards routing
-const deckCardsController = require('./controllers/DeckCardsController');
-router.post('/deck/addCard', authenticationMiddleware, deckCardsController.addCardToDeck);
-
-// History_Move controller
-const historyMoveController = require('./controllers/HistoryMoveController');
-router.get('/history_move', authenticationMiddleware, historyMoveController.index);
-router.get('/history_move/:id', authenticationMiddleware, historyMoveController.show);
-
-// router.post('/history_move', authenticationMiddleware, historyMoveController.create)
-// router.put('/history_move/:id', authenticationMiddleware, historyMoveController.update)
-// router.delete('/history_move/:id', authenticationMiddleware, historyMoveController.delete)
+router.post('/deck/addCard', authenticationMiddleware, deckController.addCardToDeck);
 
 module.exports = router;

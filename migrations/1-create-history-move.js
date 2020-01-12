@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      server: {
+        allowNull: false,
+        type: Boolean
+      },
       outcome: {
         allowNull: false,
         type: Sequelize.STRING

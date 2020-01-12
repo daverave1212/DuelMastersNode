@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     wins: DataTypes.INTEGER,
     loses: DataTypes.INTEGER,
-    rank: DataTypes.INTEGER
+    rank: DataTypes.INTEGER,
+    role: DataTypes.INTEGER
   }, {});
   User.associate = function(models) {
     User.hasMany(models.Deck);
