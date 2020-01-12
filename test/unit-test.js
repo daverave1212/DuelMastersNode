@@ -14,7 +14,8 @@ chai.use(chaiHttp);
 let global = {
     token : null,
     lastCreatedUser : null,
-    lastCreatedCard : null
+    lastCreatedCard : null,
+    lastCreatedDeck : null
 }
 
 function on(action, url, data, done, callback, after){
@@ -130,29 +131,12 @@ function logout(){
     })
 }
 
-createUser()
-testUnauthenticatedUser()
-loginNewUser()
-testAuthenticatedUser()
-logout()
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Card
-function createCard(){
-    describe(`[create] /card`, () => {
-
-    })
+function testUser(){
+    createUser()
+    testUnauthenticatedUser()
+    loginNewUser()
+    testAuthenticatedUser()
+    logout()
 }
 
 function testUnauthenticatedCard(){
@@ -216,8 +200,158 @@ function testAuthenticatedCard(){
     })
 }
 
-createCard()
-testUnauthenticatedCard()
-loginGeneral()
-testAuthenticatedCard()
-logout()
+function testCard(){
+    testUnauthenticatedCard()
+    loginGeneral()
+    testAuthenticatedCard()
+    logout()
+}
+
+
+
+
+
+
+
+
+function testUnauthenticatedDeck(){
+    describe('[unauthenticated] /deck', () => {
+        it('should not display all decks', done => {
+            on('get', '/deck', null, done, res => {
+                res.should.have.status(401)
+            })
+        })
+        it('should not display deck 1', done => {
+            on('get', `/deck/1`, null, done, res => {
+                res.should.have.status(401)
+            })
+        })
+        it('should not edit deck 1', done => {
+            on('put', `/deck/1`, testData.generateDeck(), done, res => {
+                res.should.have.status(401)
+            })
+        })
+        it('should not delete deck 1', done => {
+            on('delete', `/deck/1`, testData.generateDeck(), done, res => {
+                res.should.have.status(401)
+            })
+        })
+        it('should not create new deck', done => {
+            on('post', '/deck', testData.generateDeck(), done, res => {
+                res.should.have.status(401)
+            })
+        })
+    })
+}
+
+function testAuthenticatedDeck(){
+    describe('[authenticated] /deck', () => {
+        it('should create new deck', done => {
+            on('post', '/deck', testData.generateDeck(), done, res => {
+                res.should.have.status(200)
+                global.lastCreatedDeck = res.body
+            })
+        })
+        it('should create new card (for testing purposes)', done => {
+            on('post', '/card', testData.generateCard(), done, res => {
+                res.should.have.status(200)
+                global.lastCreatedCard = res.body
+            })
+        })
+        it('should display all decks', done => {
+            on('get', '/deck', null, done, res => {
+                res.should.have.status(200)
+            })
+        })
+        it(`should show last created deck`, done => {
+            on('get', `/deck/${global.lastCreatedDeck.UserId}`, null, done, res => {
+                res.should.have.status(200)
+            })
+        })
+        it(`should edit last created deck`, done => {
+            on('put', `/deck/${global.lastCreatedDeck.UserId}`, testData.generateDeck(), done, res => {
+                res.should.have.status(200)
+            })
+        })
+        it(`should add last created card to last created deck`, done => {
+            on('post', `/deck/addCard`, {
+                cardId : global.lastCreatedCard.id,
+                deckId : global.lastCreatedDeck.id
+            }, done, res => {
+                res.should.have.status(200)
+            })
+        })
+        it(`should delete last created deck`, done => {
+            on('delete', `/deck/${global.lastCreatedDeck.UserId}`, testData.generateDeck(), done, res => {
+                res.should.have.status(200)
+            })
+        })
+
+    })
+}
+
+function testDeck(){
+    testUnauthenticatedDeck()
+    loginGeneral()
+    testAuthenticatedDeck()
+    logout()
+}
+
+function testUnauthenticatedHistoryMove(){
+    describe('[unauthenticated] /history_move', () => {
+        it('should not display all history_moves', done => {
+            on('get', '/history_move', null, done, res => {
+                res.should.have.status(401)
+            })
+        })
+        it('should not display the history_move with id 1', done => {
+            on('get', '/history_move/1', null, done, res => {
+                res.should.have.status(401)
+            })
+        })
+    })
+}
+
+let historyMove1Succeeds = false
+function testAuthenticatedHistoryMove(){
+    describe('[authenticated] /history_move', () => {
+        it('should display all history_moves', done => {
+            on('get', '/history_move', null, done, res => {
+                res.should.have.status(200)
+                if(res.body.length && res.body.length == 0){
+                    historyMove1Succeeds = true
+                }
+            })
+        })
+        it('should display the history_move with id 1', done => {
+            if(!historyMove1Succeeds){
+                on('get', '/history_move/1', null, done, res => {
+                    res.should.have.status(200)
+                })
+            }
+        })
+    })
+}
+
+
+
+
+
+function testHistoryMove(){
+    testUnauthenticatedHistoryMove()
+    loginGeneral()
+    testAuthenticatedHistoryMove()
+}
+
+
+
+
+
+
+
+
+
+testUser()
+testCard()
+testDeck()
+testHistoryMove()
