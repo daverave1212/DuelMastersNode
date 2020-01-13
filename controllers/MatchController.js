@@ -2,7 +2,15 @@ const models = require('../models');
 
 const MatchController = {
     show: (req, res) => {
-        models.Match.findAll({where: {id: req.params.id}}).then(data => {
+        models.Match.findAll({
+            attributes: ['id', 'firstPlayerHP', 'secondPlayerHP'],
+            include: [{ model: models.User, as: 'User1', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
+            { model: models.User, as: 'User2', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
+            { model: models.Deck, as: 'Deck1', include: { model: models.Card }, attributes: ['id', 'name'] },
+            { model: models.Deck, as: 'Deck2', include: { model: models.Card }, attributes: ['id', 'name'] },
+            { model: models.HistoryMove, attributes: ['target', 'outcome'] }],
+            where: { id: req.params.id }
+        }).then(data => {
             if (!data) {
                 return res.send({});
             }
@@ -10,18 +18,34 @@ const MatchController = {
         })
     },
     index: (req, res) => {
-        models.Match.findAll().then(data => res.send(data));
-
+        models.Match.findAll({
+            attributes: ['id', 'firstPlayerHP', 'secondPlayerHP', 'createdAt', 'updatedAt'],
+            include: [{ model: models.User, as: 'User1', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
+            { model: models.User, as: 'User2', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
+            { model: models.Deck, as: 'Deck1', attributes: ['id', 'name'] },
+            { model: models.Deck, as: 'Deck2', attributes: ['id', 'name'] }]
+        }).then(data => {
+            if (!data) {
+                return res.send({});
+            }
+            return res.send(data);
+        })
     },
     create: (req, res) => {
         models.Match.create({
-            firstPlayer : req.body.firstPlayer,
-            firstPlayer_deck : req.body.firstPlayerDeck,
-            secondPlayer : req.body.secondPlayer,
-            secondPlayerDeck : req.body.secondPlayerDeck
+            firstPlayer: req.body.firstPlayer,
+            firstPlayer_deck: req.body.firstPlayerDeck,
+            secondPlayer: req.body.secondPlayer,
+            secondPlayerDeck: req.body.secondPlayerDeck
         }).then(match => {
             return res.send(match);
         });
+    },
+    getPending: (req, res) => {
+
+    },
+    setStatus: (req, res) => {
+
     },
     update: (req, res) => {
         const body = req.body;

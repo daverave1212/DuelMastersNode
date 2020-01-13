@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     rank: DataTypes.INTEGER,
     role: DataTypes.INTEGER
   }, {});
-  User.associate = function(models) {
+  User.associate = function (models) {
     User.hasMany(models.Deck);
-    User.hasMany(models.Match);
+    User.hasMany(models.Match, { foreignKey: 'User1Id' });
+    User.hasMany(models.Match, { foreignKey: 'User2Id' });
   };
   return User;
 };

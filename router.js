@@ -2,33 +2,41 @@ const express = require('express');
 const router = express.Router();
 
 // Authentication Routing
-const authenticationController = require('./controllers/AuthenticationController');
-const authenticationMiddleware = require('./middlewares/authentication');
-router.post('/login', authenticationController.login);
+const AuthenticationController = require('./controllers/AuthenticationController');
+const AuthenticationMiddleware = require('./middlewares/authentication');
+const AdminGuardMiddleware = require('./middlewares/role');
+router.post('/login', AuthenticationController.login);
 
 // User Routing
-const userController = require('./controllers/UserController');
-router.get('/user', authenticationMiddleware, userController.index);
-router.post('/user', userController.create);
-router.get('/user/:id', authenticationMiddleware, userController.show);
-router.put('/user/:id', authenticationMiddleware, userController.update);
-router.delete('/user/:id', authenticationMiddleware, userController.delete);
+const UserController = require('./controllers/UserController');
+router.get('/user', AuthenticationMiddleware, UserController.index);
+router.post('/user', UserController.create);
+router.get('/user/:id', AuthenticationMiddleware, UserController.show);
+router.put('/user/:id', AuthenticationMiddleware, UserController.update);
+router.delete('/user/:id',[AuthenticationMiddleware, AdminGuardMiddleware], UserController.delete);
 
 // Card Routing
-const cardController = require('./controllers/CardController');
-router.get('/card', authenticationMiddleware, cardController.index);
-router.post('/card', authenticationMiddleware, cardController.create);
-router.get('/card/:id', authenticationMiddleware, cardController.show);
-router.put('/card/:id', authenticationMiddleware, cardController.update);
-router.delete('/card/:id', authenticationMiddleware, cardController.delete);
+const CardController = require('./controllers/CardController');
+router.get('/card', AuthenticationMiddleware, CardController.index);
+router.post('/card', [AuthenticationMiddleware, AdminGuardMiddleware], CardController.create);
+router.get('/card/:id', AuthenticationMiddleware, CardController.show);
+router.put('/card/:id', [AuthenticationMiddleware, AdminGuardMiddleware], CardController.update);
+router.delete('/card/:id', [AuthenticationMiddleware, AdminGuardMiddleware], CardController.delete);
 
 // Deck Routing
-const deckController = require('./controllers/DeckController');
-router.get('/deck', authenticationMiddleware, deckController.index);
-router.post('/deck', authenticationMiddleware, deckController.create);
-router.get('/deck/:id', authenticationMiddleware, deckController.show);
-router.put('/deck/:id', authenticationMiddleware, deckController.update);
-router.delete('/deck/:id', authenticationMiddleware, deckController.delete);
-router.post('/deck/addCard', authenticationMiddleware, deckController.addCardToDeck);
+const DeckController = require('./controllers/DeckController');
+router.get('/deck', AuthenticationMiddleware, DeckController.index);
+router.post('/deck', AuthenticationMiddleware, DeckController.create);
+router.get('/deck/:id', AuthenticationMiddleware, DeckController.show);
+router.put('/deck/:id', AuthenticationMiddleware, DeckController.update);
+router.delete('/deck/:id', AuthenticationMiddleware, DeckController.delete);
+router.post('/deck/addCard', AuthenticationMiddleware, DeckController.addCardToDeck);
 
+// Match
+const MatchController = require('./controllers/MatchController');
+router.get('/match', AuthenticationMiddleware, MatchController.index);
+router.get('/match/:id', AuthenticationMiddleware, MatchController.show);
+router.get('/match/pending', AuthenticationMiddleware, MatchController.getPending);
+router.post('/match/pending', AuthenticationMiddleware, MatchController.create);
+router.post('/match/pending/:id', AuthenticationMiddleware, MatchController.setStatus);
 module.exports = router;

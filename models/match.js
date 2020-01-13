@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     secondPlayerHP: DataTypes.INTEGER,
   }, {});
   Match.associate = function (models) {
-    Match.belongsTo(models.User, {as: 'UserId1'});
-    Match.belongsTo(models.User, {as: 'UserId2'});
-    Match.belongsTo(models.Deck, {as: 'DeckId1'});
-    Match.belongsTo(models.Deck, {as: 'DeckId2'});
+    Match.belongsTo(models.User, {as: 'User1', foreignKey: 'User1Id'});
+    Match.belongsTo(models.User, {as: 'User2', foreignKey: 'User2Id'});
+    Match.belongsTo(models.Deck, {as: 'Deck1', foreignKey: 'Deck1Id'});
+    Match.belongsTo(models.Deck, {as: 'Deck2', foreignKey: 'Deck2Id'});
     Match.hasMany(models.HistoryMove);
   };
   return Match;

@@ -3,7 +3,7 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.addColumn(
             'Matches',
-            'UserId1', {
+            'User1Id', {
             type: Sequelize.INTEGER,
             references: {
                 model: 'Users',
@@ -14,7 +14,7 @@ module.exports = {
         }).then(() => {
             return queryInterface.addColumn(
                 'Matches',
-                'UserId2', {
+                'User2Id', {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'Users',
@@ -26,7 +26,7 @@ module.exports = {
         }).then(() => {
             return queryInterface.addColumn(
                 'Matches',
-                'DeckId1', {
+                'Deck1Id', {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'Decks',
@@ -38,7 +38,7 @@ module.exports = {
         }).then(() => {
             return queryInterface.addColumn(
                 'Matches',
-                'DeckId2', {
+                'Deck2Id', {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'Decks',
@@ -52,21 +52,21 @@ module.exports = {
     down: (queryInterface, Sequelize) => {
         return queryInterface.removeColumn(
             'Matches',
-            'UserId1'
+            'User1Id'
         ).then(() => {
             return queryInterface.removeColumn(
                 'Matches',
-                'UserId2'
+                'User2Id'
             );
         }).then(() => {
             return queryInterface.removeColumn(
                 'Matches',
-                'DeckId1'
+                'Deck1Id'
             );
         }).then(() => {
             return queryInterface.removeColumn(
                 'Matches',
-                'DeckId2'
+                'Deck2Id'
             );
         });
     }

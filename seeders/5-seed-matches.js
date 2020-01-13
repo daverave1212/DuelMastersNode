@@ -7,10 +7,10 @@ module.exports = {
       secondPlayerHP: 2300,
       createdAt: new Date(),
       updatedAt: new Date(),
-      UserId1: 1,
-      UserId2: 2,
-      DeckId1: 1,
-      DeckId2: 2
+      User1Id: 1,
+      User2Id: 2,
+      Deck1Id: 1,
+      Deck2Id: 2
     }]);
   },
 

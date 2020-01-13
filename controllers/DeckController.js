@@ -24,14 +24,35 @@ const DeckController = {
         }).then(deck => res.send(deck)).catch(err=>console.error(err));
     },
     update: (req, res) => {
-        const id = req.params.id;
-        models.Deck.update(req.body, { where: { id } }).then(updated =>
-            models.Deck.findByPk(id).then(data => res.send(data))
-        );
+        models.Deck.findOne({where: {id: req.params.id}}).then(deck=>{
+            if(!deck){
+                return Promise.reject({status: 'Deck not found', errorCode: 200});
+            }
+            if(deck.UserId === req.headers.userId || req.headers.role > 0){
+                return Promise.resolve(true);
+            }else{
+                return Promise.reject({status: 'Unauthorized', errorCode: 401});
+            }
+        }).then(validated =>{
+            models.Deck.update(req.body, { where: { id: req.params.id} }).then(updated =>
+                res.send('success')
+            );
+        }).catch(({status, errorCode}) => res.status(errorCode).send(status));
     },
     delete: (req, res) => {
-        const id = req.params.id;
-        models.Deck.destroy({ where: { id } }).then(data => res.send(true));
+
+        models.Deck.findOne({where: {id: req.params.id}}).then(deck=>{
+            if(!deck){
+                return Promise.reject({status: 'Deck not found', errorCode: 200});
+            }
+            if(deck.UserId === req.headers.userId || req.headers.role > 0){
+                return Promise.resolve(true);
+            }else{
+                return Promise.reject({status: 'Unauthorized', errorCode: 401});
+            }
+        }).then(validated => {
+            models.Deck.destroy({ where: { id: req.params.id }}).then(data => res.send(true));
+        });      
     },
     addCardToDeck: (req, res) => {
         models.Deck.findOne({ where: { id: req.body.deckId } }).then(targetDeck => {

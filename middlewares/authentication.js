@@ -1,22 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../SuperSecretKey.js');
 const jwtDecode = require('jwt-decode');
-// const models = require('../models');
-
-// function verifyUsernameAndPassword(data, callback){
-//     models.User.findAll({
-//         where: {
-//             username: data.user.username,
-//             password: data.user.password,
-//         }
-//     }).then(data => {
-//         if(data != null && data.length > 0){
-//             callback(false);
-//         } else {
-//             callback(true);
-//         }
-//     })
-// }
 
 function doAuthorization(req, res, next){
     if(!req.headers.authorization){
@@ -35,17 +19,7 @@ function doAuthorization(req, res, next){
                 req.headers.role = jwtDecode(tokenToVerify).role;
                 next();
             }
-            // else{
-            //     verifyUsernameAndPassword(data, (error) => {
-            //       if(err){
-            //           res.status(403).send({
-            //               error: "Invalid username and/or password."
-            //           })
-            //       } else {
-            //           next()
-            //       }
-            //     })
-            // }
+           
         });
     }
 }
