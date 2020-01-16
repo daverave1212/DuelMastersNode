@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Match = sequelize.define('Match', {
+    state: DataTypes.STRING,
     firstPlayerHP: DataTypes.INTEGER,
     secondPlayerHP: DataTypes.INTEGER,
   }, {});

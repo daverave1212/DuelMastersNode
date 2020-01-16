@@ -37,6 +37,6 @@ const MatchController = require('./controllers/MatchController');
 router.get('/match', AuthenticationMiddleware, MatchController.index);
 router.get('/match/:id', AuthenticationMiddleware, MatchController.show);
 router.get('/match/pending', AuthenticationMiddleware, MatchController.getPending);
-router.post('/match/pending', AuthenticationMiddleware, MatchController.create);
+router.post('/match/create', AuthenticationMiddleware, MatchController.create);
 router.post('/match/pending/:id', AuthenticationMiddleware, MatchController.setStatus);
 module.exports = router;

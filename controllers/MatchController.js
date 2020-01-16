@@ -3,7 +3,7 @@ const models = require('../models');
 const MatchController = {
     show: (req, res) => {
         models.Match.findAll({
-            attributes: ['id', 'firstPlayerHP', 'secondPlayerHP'],
+            attributes: ['id', 'state', 'firstPlayerHP', 'secondPlayerHP'],
             include: [{ model: models.User, as: 'User1', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
             { model: models.User, as: 'User2', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
             { model: models.Deck, as: 'Deck1', include: { model: models.Card }, attributes: ['id', 'name'] },
@@ -19,7 +19,7 @@ const MatchController = {
     },
     index: (req, res) => {
         models.Match.findAll({
-            attributes: ['id', 'firstPlayerHP', 'secondPlayerHP', 'createdAt', 'updatedAt'],
+            attributes: ['id', 'state', 'firstPlayerHP', 'secondPlayerHP', 'createdAt', 'updatedAt'],
             include: [{ model: models.User, as: 'User1', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
             { model: models.User, as: 'User2', attributes: ['id', 'username', 'wins', 'loses', 'rank'] },
             { model: models.Deck, as: 'Deck1', attributes: ['id', 'name'] },
@@ -32,14 +32,15 @@ const MatchController = {
         })
     },
     create: (req, res) => {
-        models.Match.create({
-            firstPlayer: req.body.firstPlayer,
-            firstPlayer_deck: req.body.firstPlayerDeck,
-            secondPlayer: req.body.secondPlayer,
-            secondPlayerDeck: req.body.secondPlayerDeck
+        models.User.findOne({ where: { id: req.headers.userId } }).then(player1 => {
+            return models.Match.create({
+                firstPlayer: player1,
+                firstPlayer_deck: req.body.choosenDeck,
+                secondPlayer: models.User.findOne({ where: { id: req.body.targetPlayerId } })
+            });
         }).then(match => {
-            return res.send(match);
-        });
+                return res.send(match);
+            });
     },
     getPending: (req, res) => {
 

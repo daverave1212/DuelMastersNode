@@ -44,6 +44,7 @@ module.exports = {
                     model: 'Decks',
                     key: 'id'
                 },
+                allowNull: true,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             });
